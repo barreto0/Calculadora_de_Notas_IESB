@@ -61,75 +61,80 @@ class _InputScreenState extends State<InputScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: resetCampos,
-          )
-        ],
-        elevation: 0.0,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text(
-                'Insira sua nota A1:',
-                textAlign: TextAlign.center,
-                style: kEstiloTextoInput,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: TextField(
-                  controller: controleNotaA1,
-                  keyboardType: TextInputType.number,
-                  decoration: kEstiloTextField,
-                  onChanged: (valor) {
-                    a1 = double.parse(valor);
+    return WillPopScope(
+      //bloqueia o botao voltar do sistema
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: resetCampos,
+            )
+          ],
+          elevation: 0.0,
+        ),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Text(
+                  'Insira sua nota A1:',
+                  textAlign: TextAlign.center,
+                  style: kEstiloTextoInput,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: TextField(
+                    controller: controleNotaA1,
+                    keyboardType: TextInputType.number,
+                    decoration: kEstiloTextField,
+                    onChanged: (valor) {
+                      a1 = double.parse(valor);
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                Text(
+                  'Insira sua nota A2:',
+                  textAlign: TextAlign.center,
+                  style: kEstiloTextoInput,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: TextField(
+                    controller: controleNotaA2,
+                    keyboardType: TextInputType.number,
+                    decoration: kEstiloTextField,
+                    onChanged: (valor) {
+                      a2 = double.parse(valor);
+                    },
+                  ),
+                ),
+                FlatButtonCustom(
+                  legenda: 'Calcular!',
+                  apertado: () {
+                    nota();
                   },
                 ),
-              ),
-              SizedBox(
-                height: 15.0,
-              ),
-              Text(
-                'Insira sua nota A2:',
-                textAlign: TextAlign.center,
-                style: kEstiloTextoInput,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: TextField(
-                  controller: controleNotaA2,
-                  keyboardType: TextInputType.number,
-                  decoration: kEstiloTextField,
-                  onChanged: (valor) {
-                    a2 = double.parse(valor);
-                  },
+                SizedBox(
+                  height: 25.0,
                 ),
-              ),
-              FlatButtonCustom(
-                legenda: 'Calcular!',
-                apertado: () {
-                  nota();
-                },
-              ),
-              SizedBox(
-                height: 25.0,
-              ),
-              Text(
-                mensagemPreenche,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.white,
+                Text(
+                  mensagemPreenche,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

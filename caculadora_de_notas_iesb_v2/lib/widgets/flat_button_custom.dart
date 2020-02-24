@@ -7,7 +7,7 @@ class FlatButtonCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+      padding: const EdgeInsets.only(left: 40.0, right: 40.0, top: 15.0),
       child: FlatButton(
         /*color: Colors.white,
         shape: RoundedRectangleBorder(

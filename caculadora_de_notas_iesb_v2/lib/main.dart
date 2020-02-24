@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/input_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() => runApp(AppCalcIesbV2());
 
@@ -13,7 +13,8 @@ class AppCalcIesbV2 extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFFD92936),
         fontFamily: 'PatuaOne',
       ),
-      home: InputScreen(),
+      home: SplashScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
