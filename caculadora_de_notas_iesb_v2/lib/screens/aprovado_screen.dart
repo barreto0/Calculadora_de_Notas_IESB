@@ -27,7 +27,7 @@ class AprovadoScreen extends StatelessWidget {
               height: 50.0,
             ),
             Text(
-              resultado.toString(),
+              resultado.toStringAsPrecision(3),
               style: TextStyle(
                 fontSize: 150.0,
                 color: Colors.white,

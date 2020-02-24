@@ -14,6 +14,7 @@ class _InputScreenState extends State<InputScreen> {
   double a1;
   double a2;
   double resultado;
+
   Calculadora calc = Calculadora();
   String mensagemPreenche = '';
 
@@ -78,8 +79,14 @@ class _InputScreenState extends State<InputScreen> {
                           MaterialPageRoute(builder: (context) {
                         return ReprovadoScreen(
                           resultado: resultado,
+                          p3: calc.calculaP3(a1, a2),
                         );
                       }));
+                    } else {
+                      setState(() {
+                        mensagemPreenche =
+                            'Preencha ambos os campos corretamente!';
+                      });
                     }
                   } else {
                     setState(() {
