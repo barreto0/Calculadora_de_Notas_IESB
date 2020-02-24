@@ -7,46 +7,48 @@ class AprovadoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Parabéns!',
-              style: TextStyle(fontSize: 50.0, color: Colors.white),
-            ),
-            SizedBox(
-              height: 25.0,
-            ),
-            Text(
-              'Sua nota final foi: ',
-              style: TextStyle(fontSize: 30.0, color: Colors.white),
-            ),
-            SizedBox(
-              height: 50.0,
-            ),
-            Text(
-              resultado.toStringAsPrecision(3),
-              style: TextStyle(
-                fontSize: 150.0,
-                color: Colors.white,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'Parabéns!',
+                style: TextStyle(fontSize: 50.0, color: Colors.white),
               ),
-            ),
-            SizedBox(
-              height: 25.0,
-            ),
-            Text(
-              'E você foi aprovado!',
-              style: TextStyle(fontSize: 30.0, color: Colors.white),
-            ),
-            FlatButtonCustom(
-              legenda: 'Calcular novamente',
-              apertado: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
+              SizedBox(
+                height: 25.0,
+              ),
+              Text(
+                'Sua nota final foi: ',
+                style: TextStyle(fontSize: 30.0, color: Colors.white),
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              Text(
+                resultado.toStringAsPrecision(3),
+                style: TextStyle(
+                  fontSize: 150.0,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                height: 25.0,
+              ),
+              Text(
+                'E você foi aprovado!',
+                style: TextStyle(fontSize: 30.0, color: Colors.white),
+              ),
+              FlatButtonCustom(
+                legenda: 'Calcular novamente',
+                apertado: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

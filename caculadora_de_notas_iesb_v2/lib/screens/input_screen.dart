@@ -14,14 +14,64 @@ class _InputScreenState extends State<InputScreen> {
   double a1;
   double a2;
   double resultado;
-
-  Calculadora calc = Calculadora();
   String mensagemPreenche = '';
+
+  TextEditingController controleNotaA1 = TextEditingController();
+  TextEditingController controleNotaA2 = TextEditingController();
+
+  void resetCampos() {
+    setState(() {
+      a1 = null;
+      a2 = null;
+      resultado = null;
+      mensagemPreenche = '';
+      controleNotaA1.text = '';
+      controleNotaA2.text = '';
+    });
+  }
+
+  void nota() {
+    Calculadora calc = Calculadora();
+    if (a1 != null && a2 != null) {
+      resultado = calc.calculaNota(a1, a2);
+      if (resultado >= 5.0 && resultado <= 10.0) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return AprovadoScreen(
+            resultado: resultado,
+          );
+        }));
+      } else if (resultado >= 0 && resultado < 5.0) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return ReprovadoScreen(
+            resultado: resultado,
+            p3: calc.calculaP3(a1, a2),
+          );
+        }));
+      } else {
+        setState(() {
+          mensagemPreenche = 'Preencha ambos os campos corretamente!';
+        });
+      }
+    } else {
+      setState(() {
+        mensagemPreenche = 'Preencha ambos os campos corretamente!';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: resetCampos,
+          )
+        ],
+        elevation: 0.0,
+      ),
+      body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
@@ -36,11 +86,11 @@ class _InputScreenState extends State<InputScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextField(
+                  controller: controleNotaA1,
                   keyboardType: TextInputType.number,
                   decoration: kEstiloTextField,
                   onChanged: (valor) {
                     a1 = double.parse(valor);
-                    print(a1);
                   },
                 ),
               ),
@@ -55,6 +105,7 @@ class _InputScreenState extends State<InputScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: TextField(
+                  controller: controleNotaA2,
                   keyboardType: TextInputType.number,
                   decoration: kEstiloTextField,
                   onChanged: (valor) {
@@ -65,37 +116,7 @@ class _InputScreenState extends State<InputScreen> {
               FlatButtonCustom(
                 legenda: 'Calcular!',
                 apertado: () {
-                  if (a1 != null && a2 != null) {
-                    resultado = calc.calculaNota(a1, a2);
-                    if (resultado >= 5.0 && resultado <= 10.0) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return AprovadoScreen(
-                          resultado: resultado,
-                        );
-                      }));
-                    } else if (resultado >= 0 && resultado < 5.0) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ReprovadoScreen(
-                          resultado: resultado,
-                          p3: calc.calculaP3(a1, a2),
-                        );
-                      }));
-                    } else {
-                      setState(() {
-                        mensagemPreenche =
-                            'Preencha ambos os campos corretamente!';
-                      });
-                    }
-                  } else {
-                    setState(() {
-                      mensagemPreenche =
-                          'Preencha ambos os campos corretamente!';
-                    });
-                  }
-
-                  print(resultado);
+                  nota();
                 },
               ),
               SizedBox(
